@@ -117,7 +117,7 @@ strong {
 </head>
 <body>
 
-<video autoplay muted loop src="logo-bg.mp4" type="video/mp4" id="myVideo" class="myVideo">
+<video autoplay muted src="logo-bg.mp4" type="video/mp4" id="myVideo" class="myVideo">
   Your browser does not support HTML5 video.
 </video>  
 
@@ -166,9 +166,19 @@ var modal = document.getElementById("myModal");
 
 var vid = document.getElementById("myVideo");
 
-// Pause vid after first loop
+var loopCount = 0;
 
-setTimeout(() => {vid.pause()}, 7400);
+// Pause vid after first loop
+document.querySelector('video').addEventListener('ended', function() {
+  console.count();
+  loopCount++;
+  this.play();
+  if(loopCount === 1) {
+    setTimeout(this.pause(), 10);
+  }
+})
+
+
 
 vid.onpause = () => {
   console.log('End was triggered');
