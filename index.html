@@ -4,7 +4,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   
-body {font-family: Arial, Helvetica, sans-serif;}
+body {
+  font-family: Arial, 
+  Helvetica, sans-serif;
+  margin: 0;  
+}
 
 input[type=submit] {
   color: white;
@@ -41,14 +45,13 @@ strong {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  padding-top: 0px; /* Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: #fff; /* Fallback color */
-  background-color: rgb(255, 255, 255, .9); /* Black w/ opacity */
+  background-color: transparent; /* Fallback color */
 }
 
 /* Modal Content */
@@ -98,11 +101,25 @@ strong {
     background-color: transparent;
 }
 
+.myVideo {
+  position: fixed;
+  object-fit: cover;
+  left: 0;
+  right: 0; 
+  top: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
+}
+
 </style>
 </head>
 <body>
 
-<h2>Animated Modal with Header and Footer</h2>
+<video autoplay muted loop src="logo-bg.mp4" type="video/mp4" id="myVideo" class="myVideo">
+  Your browser does not support HTML5 video.
+</video>  
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
@@ -110,7 +127,7 @@ strong {
   <!-- Modal content -->
   <div class="modal-content">
     <div class="modal-header">
-      <img src="./logo.png" style="width: 200px; position: relative; left: 50%; top: 50%; transform: translate(-50%, 0%); padding: 15px 0px 75px 0px; filter: drop-shadow(0 0 0.2rem gray)">
+      <img src="./logo.png" style="width: 300px; position: relative; left: 50%; top: 50%; transform: translate(-50%, 0%); padding: 15px 0px 75px 0px; filter: drop-shadow(0 0 0.1rem #f2f2f2)">
     </div>
     <div class="modal-body">
       <div class="flex-container">
@@ -145,9 +162,18 @@ strong {
 
 var modal = document.getElementById("myModal");
 
-// When the page opens, checks for cookies
+// Trigger modal after video is done
 
-window.onload = checkCookie();
+var vid = document.getElementById("myVideo");
+
+// Pause vid after first loop
+
+setTimeout(() => {vid.pause()}, 7400);
+
+vid.onpause = () => {
+  console.log('End was triggered');
+  checkCookie();
+}
 
 // Calculate the age and determine destination
 
